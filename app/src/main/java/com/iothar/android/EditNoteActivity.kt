@@ -65,6 +65,7 @@ class EditNoteActivity : AppCompatActivity() {
             appDatabase.notesDao()
                 .find(noteId)
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(noteConsumer)
         else
             noteConsumer.accept(Note(-1, "", ""))

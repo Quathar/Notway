@@ -17,7 +17,7 @@ interface NotesDao {
     @Query("SELECT * FROM notes")
     fun getAll(): Single<List<Note>>
 
-    @Query("SELECT * FROM notes WHERE noteId =:noteId")
+    @Query("SELECT * FROM notes WHERE noteId = :noteId")
     fun find(noteId: Int): Single<Note>
 //
     @Transaction
@@ -25,11 +25,11 @@ interface NotesDao {
     fun getNotesWithTags(): Single<List<NoteWithTags>>
 
     @Transaction
-    @Query("SELECT * FROM notes WHERE noteId =:noteId")
+    @Query("SELECT * FROM notes WHERE noteId = :noteId")
     fun findWithNotes(noteId: Int): Single<NoteWithTags>
 
     @Insert
-    fun insertNote(note: Note): Completable
+    fun insertNote(note: Note): Single<Long>
 
     @Update
     fun updateNote(note: Note): Completable

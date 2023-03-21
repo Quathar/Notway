@@ -1,11 +1,6 @@
 package com.iothar.db.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.Update
+import androidx.room.*
 import com.iothar.db.entity.Tag
 import com.iothar.db.model.TagWithNotes
 import io.reactivex.rxjava3.core.Completable
@@ -17,19 +12,22 @@ interface TagsDao {
     @Query("SELECT * FROM tags")
     fun getAll(): Single<List<Tag>>
 
-    @Query("SELECT * FROM tags WHERE tagId =:tagId")
+    @Query("SELECT * FROM tags WHERE tagId = :tagId")
     fun find(tagId: Int): Single<Tag>
 
     @Transaction
     @Query("SELECT * FROM tags")
-    fun getTagsWithTags(): Single<List<TagWithNotes>>
+    fun getTagsWithNotes(): Single<List<TagWithNotes>>
 
     @Transaction
-    @Query("SELECT * FROM tags WHERE tagId =:tagId")
+    @Query("SELECT * FROM tags WHERE tagId = :tagId")
     fun findWithTags(tagId: Int): Single<TagWithNotes>
 
     @Insert
     fun insertTag(tag: Tag): Completable
+
+    @Insert
+    fun insertTags(tags: List<Tag>): Single<List<Long>>
 
     @Update
     fun updateTag(tag: Tag): Completable
