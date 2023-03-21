@@ -10,13 +10,22 @@ import com.iothar.db.entity.Note
 import com.iothar.db.entity.NoteTagCrossRef
 import com.iothar.db.entity.Tag
 
-@Database(entities = [Note::class, Tag::class, NoteTagCrossRef::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Note::class, Tag::class, NoteTagCrossRef::class],
+    version = 1,
+    exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun notesDao(): NotesDao
     abstract fun  tagsDao(): TagsDao
 
     companion object {
+
+        private const val DATABASE_NAME = "notes-database"
+
         fun getInstance(context: Context): AppDatabase =
-            Room.databaseBuilder(context, AppDatabase::class.java, "notes-database").build()
+            Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
+
     }
+
 }

@@ -1,6 +1,11 @@
 package com.iothar.db.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.iothar.db.entity.Tag
 import com.iothar.db.model.TagWithNotes
 import io.reactivex.rxjava3.core.Completable
@@ -8,6 +13,7 @@ import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface TagsDao {
+
     @Query("SELECT * FROM tags")
     fun getAll(): Single<List<Tag>>
 
@@ -30,4 +36,5 @@ interface TagsDao {
 
     @Delete
     fun deleteTag(tag: Tag): Completable
+
 }

@@ -2,9 +2,9 @@ package com.iothar.android
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.recycler.NoteAdapter
@@ -14,6 +14,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 
+    // <<-FIELD->>
     private lateinit var _notes: MutableList<Note>
 
     @SuppressLint("CheckResult")
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
                 recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
             }
-
+//
         findViewById<ImageButton>(R.id.add_student).setOnClickListener {
             startActivity(
                 Intent(this@MainActivity, EditNoteActivity::class.java)

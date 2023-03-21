@@ -46,12 +46,14 @@ class EditNoteActivity : AppCompatActivity() {
                 }
 
                 if (note.noteId > 0)
-                    appDatabase.notesDao().updateNote(note)
+                    appDatabase.notesDao()
+                        .updateNote(note)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(navigateToMainActivityAction)
                 else
-                    appDatabase.notesDao().insertNote(note)
+                    appDatabase.notesDao()
+                        .insertNote(note)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(navigateToMainActivityAction)
@@ -60,7 +62,8 @@ class EditNoteActivity : AppCompatActivity() {
         val noteId = intent.getIntExtra(NOTE_ID_KEY, 0)
 
         if (noteId > 0)
-            appDatabase.notesDao().find(noteId)
+            appDatabase.notesDao()
+                .find(noteId)
                 .subscribeOn(Schedulers.io())
                 .subscribe(noteConsumer)
         else
