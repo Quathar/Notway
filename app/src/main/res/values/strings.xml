@@ -1,10 +1,16 @@
 <resources>
-    <string name="app_name">E5-AplicacionNotas</string>
+    <string name="app_name">Notes Application</string>
+
     <string name="add">add</string>
-    <string name="edit_student">edit student</string>
+    <string name="add_note">Add Note</string>
     <string name="delete_student">delete student</string>
-    <string name="name">Name</string>
+    <string name="edit_student">edit student</string>
     <string name="first_surname">First Surname</string>
+    <string name="manage_tags">Manage Tags</string>
+    <string name="name">Name</string>
     <string name="second_surname">Second Surname</string>
     <string name="save">Save</string>
+    <string name="title_add_note">New Note</string>
+    <string name="add_tag">Add tag</string>
+    <string name="edit_tags">Tags</string>
 </resources>

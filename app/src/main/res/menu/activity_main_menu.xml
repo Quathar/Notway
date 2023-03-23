@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            android:id="@+id/add_note"
+            android:icon="@drawable/ic_baseline_note_add_24"
+            android:title="@string/add_note"
+            app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/manage_tags"
+        android:icon="@drawable/ic_baseline_tag_add_24"
+        android:title="@string/manage_tags"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="test"
+        app:showAsAction="never"/>
+
+</menu>

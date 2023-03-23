@@ -85,12 +85,12 @@ abstract class NotesWithTagsDao {
                 .map { t -> t.tagId.toLong() }
                 .collect(Collectors.toList()))
         val notesTagCrossRefs = ArrayList<NoteTagCrossRef>()
-        for (tagId in tagIdsToCrossReference) {
-            val noteTagCrossRef = NoteTagCrossRef()
-            noteTagCrossRef.noteId = noteId
-            noteTagCrossRef.tagId = tagId.toInt()
-            notesTagCrossRefs.add(noteTagCrossRef)
-        }
+//        for (tagId in tagIdsToCrossReference) {
+//            val noteTagCrossRef = NoteTagCrossRef()
+//            noteTagCrossRef.noteId = noteId
+//            noteTagCrossRef.tagId = tagId.toInt()
+//            notesTagCrossRefs.add(noteTagCrossRef)
+//        }
         insertCrossRefs(notesTagCrossRefs)
     }
 
