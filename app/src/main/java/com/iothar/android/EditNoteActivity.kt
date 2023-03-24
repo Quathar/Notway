@@ -1,6 +1,7 @@
 package com.iothar.android
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -8,6 +9,9 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.iothar.android.dialog.TagDialog
 import com.iothar.db.entity.Note
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.functions.Action
@@ -88,24 +92,21 @@ class EditNoteActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
-        R.id.manage_tags -> {
-            //Dialog
-//            startActivity(
-//                Intent(this@EditNoteActivity, EditNoteActivity::class.java)
-//                    .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) }
-//            )
-            true
-        }
-        R.id.save_icon -> {
-            // Que aparezca la ventana de administrar tags
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when(item.itemId) {
+            R.id.manage_tags -> {
+                TagDialog().show(supportFragmentManager, "New Tag")
+                true
+            }
+            R.id.save_icon -> {
+                // Que aparezca la ventana de administrar tags
 //            startActivity(
 //                Intent(this@MainActivity, EditNoteActivity::class.java)
 //                    .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) }
 //            )
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
     }
 
 }

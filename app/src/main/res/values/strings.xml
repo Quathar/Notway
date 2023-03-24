@@ -13,4 +13,6 @@
     <string name="title_add_note">New Note</string>
     <string name="add_tag">Add tag</string>
     <string name="edit_tags">Tags</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>
