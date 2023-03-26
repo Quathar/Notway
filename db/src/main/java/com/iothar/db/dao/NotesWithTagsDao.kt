@@ -5,9 +5,6 @@ import com.iothar.db.entity.Note
 import com.iothar.db.entity.NoteTagCrossRef
 import com.iothar.db.entity.Tag
 import com.iothar.db.model.NoteWithTags
-import io.reactivex.rxjava3.core.Completable
-import java.util.function.Function
-import java.util.stream.Collectors
 
 @Dao
 abstract class NotesWithTagsDao {
@@ -21,28 +18,20 @@ abstract class NotesWithTagsDao {
     @Insert
     protected abstract fun insertCrossRefs(noteTagCrossRefs: List<NoteTagCrossRef>)
 
-    @Query("DELETE FROM NoteTagCrossRef WHERE noteId = :noteId")
-    protected abstract fun deleteCrossRefsByNoteId(noteId: Int)
+    @Query("DELETE FROM note_tag_ref WHERE nid = :nid")
+    protected abstract fun deleteCrossRefsByNoteId(nid: Int)
 
-    fun insertNoteWithTags(noteWithTags: NoteWithTags): Completable {
-        return Completable.fromAction {
-            //First insert the note and get its Id
-            val noteId = insertNote(noteWithTags.note).toInt()
+    suspend fun insertNoteWithTags(noteWithTags: NoteWithTags) {
+        //First insert the note and get its Id
+        val noteId = insertNote(noteWithTags.note).toInt()
 
-            //Then insert *only* the newly created tags
-            val newTags = noteWithTags.tags
-                .stream()
-                .filter { tag -> tag.tagId == 0 }
-                .collect(Collectors.toList())
-            val newTagIds = insertTags(newTags)
-            val existingTags = noteWithTags.tags
-                .stream()
-                .filter { tag -> tag.tagId != 0 }
-                .collect(Collectors.toList())
+        //Then insert *only* the newly created tags
+        val newTags = noteWithTags.tags.filter { tag -> tag.tid == 0 }
+        val newTagIds = insertTags(newTags)
+        val existingTags = noteWithTags.tags.filter { tag -> tag.tid != 0 }
 
-            //Finally, create the note/tag cross references.
-            insertCrossRefs(newTagIds, existingTags, noteId)
-        }
+        //Finally, create the note/tag cross references.
+        insertCrossRefs(newTagIds, existingTags, noteId)
     }
 
     @Update
@@ -51,39 +40,27 @@ abstract class NotesWithTagsDao {
     @Update
     protected abstract fun updateTags(tags: List<Tag>)
 
-    fun updateNoteWithTags(noteWithTags: NoteWithTags): Completable {
-        return Completable.fromAction {
-            //First update the note
-            updateNote(noteWithTags.note)
-            //Then insert *only* the newly created tags
-            val newTags = noteWithTags.tags
-                .stream()
-                .filter { tag -> tag.tagId == 0 }
-                .collect(Collectors.toList())
-            val newTagIds = insertTags(newTags)
-            //And update the existingTags in case they've somehow changed. To keep things simple, we update them without further checks
-            val existingTags = noteWithTags.tags
-                .stream()
-                .filter { tag -> tag.tagId != 0 }
-                .collect(Collectors.toList())
-            updateTags(existingTags)
+    suspend fun updateNoteWithTags(noteWithTags: NoteWithTags) {
+        //First update the note
+        updateNote(noteWithTags.note)
+        //Then insert *only* the newly created tags
+        val newTags = noteWithTags.tags.filter { tag -> tag.tid == 0 }
+        val newTagIds = insertTags(newTags)
+        //And update the existingTags in case they've somehow changed. To keep things simple, we update them without further checks
+        val existingTags = noteWithTags.tags.filter { tag -> tag.tid != 0 }
+        updateTags(existingTags)
 
-            //Finally, create the note/tag cross references.
-            //Again, to keep things simple, we delete any existing cross reference
-            deleteCrossRefsByNoteId(noteWithTags.note.noteId)
-            //and then we insert them all
-            insertCrossRefs(newTagIds, existingTags, noteWithTags.note.noteId)
-        }
+        //Finally, create the note/tag cross references.
+        //Again, to keep things simple, we delete any existing cross reference
+        deleteCrossRefsByNoteId(noteWithTags.note.nid)
+        //and then we insert them all
+        insertCrossRefs(newTagIds, existingTags, noteWithTags.note.nid)
     }
 
-    private fun insertCrossRefs(newTagIds: List<Long>, existingTags: List<Tag>, noteId: Int) {
+    private fun insertCrossRefs(newTagIds: List<Long>, existingTags: List<Tag>, nid: Int) {
         val tagIdsToCrossReference = ArrayList<Long>()
         tagIdsToCrossReference.addAll(newTagIds)
-        tagIdsToCrossReference.addAll(
-            existingTags
-                .stream()
-                .map { t -> t.tagId.toLong() }
-                .collect(Collectors.toList()))
+        tagIdsToCrossReference.addAll(existingTags.map { t -> t.tid.toLong() })
         val notesTagCrossRefs = ArrayList<NoteTagCrossRef>()
 //        for (tagId in tagIdsToCrossReference) {
 //            val noteTagCrossRef = NoteTagCrossRef()
@@ -94,30 +71,26 @@ abstract class NotesWithTagsDao {
         insertCrossRefs(notesTagCrossRefs)
     }
 
-    @Query("DELETE FROM NoteTagCrossRef WHERE tagId = :tagId")
-    protected abstract fun deleteCrossRefsByTagId(tagId: Int)
+    @Query("DELETE FROM note_tag_ref WHERE tid = :tid")
+    protected abstract fun deleteCrossRefsByTagId(tid: Int)
 
     @Delete
     protected abstract fun deleteTag(tag: Tag)
 
-    fun deleteTagAndCrossReferences(tag: Tag): Completable {
-        return Completable.fromAction {
-            //First delete all the crossreferences
-            deleteCrossRefsByTagId(tag.tagId)
-            //Then delete the tag proper
-            deleteTag(tag)
-        }
+    suspend fun deleteTagAndCrossReferences(tag: Tag) {
+        //First delete all the crossreferences
+        deleteCrossRefsByTagId(tag.tid)
+        //Then delete the tag proper
+        deleteTag(tag)
     }
 
     @Delete
     protected abstract fun deleteNote(note: Note)
 
-    fun deleteNoteAndCrossReferences(note: Note): Completable {
-        return Completable.fromAction {
-            //First delete all the crossreferences
-            deleteCrossRefsByNoteId(note.noteId)
-            //Then delete the note proper
-            deleteNote(note)
-        }
+    suspend fun deleteNoteAndCrossReferences(note: Note) {
+        //First delete all the crossreferences
+        deleteCrossRefsByNoteId(note.nid)
+        //Then delete the note proper
+        deleteNote(note)
     }
 }

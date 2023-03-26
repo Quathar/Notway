@@ -8,33 +8,31 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.iothar.db.entity.Note
 import com.iothar.db.model.NoteWithTags
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface NotesDao {
 
     @Query("SELECT * FROM notes")
-    fun getAll(): Single<List<Note>>
+    suspend fun getAll(): List<Note>
 
-    @Query("SELECT * FROM notes WHERE noteId = :noteId")
-    fun find(noteId: Int): Single<Note>
-//
+    @Query("SELECT * FROM notes WHERE nid = :nid")
+    suspend fun find(nid: Int): Note
+
     @Transaction
     @Query("SELECT * FROM notes")
-    fun getNotesWithTags(): Single<List<NoteWithTags>>
+    suspend fun getNotesWithTags(): List<NoteWithTags>
 
     @Transaction
-    @Query("SELECT * FROM notes WHERE noteId = :noteId")
-    fun findWithNotes(noteId: Int): Single<NoteWithTags>
+    @Query("SELECT * FROM notes WHERE nid = :nid")
+    suspend fun findWithNotes(nid: Int): NoteWithTags
 
     @Insert
-    fun insertNote(note: Note): Single<Long>
+    suspend fun insertNote(note: Note): Long
 
     @Update
-    fun updateNote(note: Note): Completable
+    suspend fun updateNote(note: Note)
 
     @Delete
-    fun deleteNote(note: Note): Completable
+    suspend fun deleteNote(note: Note)
 
 }

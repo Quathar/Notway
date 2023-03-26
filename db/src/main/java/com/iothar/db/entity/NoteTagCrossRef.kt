@@ -3,9 +3,12 @@ package com.iothar.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
-@Entity(primaryKeys = ["noteId", "tagId"])
+@Entity(
+    tableName   = "note_tag_ref",
+    primaryKeys = ["nid", "tid"]
+)
 data class NoteTagCrossRef(
-    var noteId: Int,
+    var nid: Int,
     @ColumnInfo(index = true)
-    var tagId: Int
+    var tid: Int
 )

@@ -12,18 +12,18 @@ class NoteViewHolder(
     private val noteClickListener: NoteAdapter.NoteClickListener
 ) : RecyclerView.ViewHolder(view) {
 
-    private val _nameTextView          = view.findViewById<TextView>(R.id.name)
-    private val _firstSurnameTextView  = view.findViewById<TextView>(R.id.first_surname)
-    private val _secondSurnameTextView = view.findViewById<TextView>(R.id.second_surname)
-    private val _buttonDelete          = view.findViewById<ImageButton>(R.id.button_delete)
-    private val _buttonEdit            = view.findViewById<ImageButton>(R.id.button_details)
+    private val _nameTextView          = view.findViewById<TextView>(R.id.note_name)
+//    private val _firstSurnameTextView  = view.findViewById<TextView>(R.id.first_surname)
+//    private val _secondSurnameTextView = view.findViewById<TextView>(R.id.second_surname)
+    private val _buttonDelete          = view.findViewById<ImageButton>(R.id.button_delete_note)
+    private val _buttonEdit            = view.findViewById<ImageButton>(R.id.button_edit_note)
 
     fun bind(note: Note) {
         _buttonDelete.setOnClickListener { noteClickListener.onNoteDelete(adapterPosition) }
         _buttonEdit.setOnClickListener { noteClickListener.onNoteEdit(adapterPosition) }
-        _nameTextView.setText(note.noteId)
-        _firstSurnameTextView.text = note.title
-        _secondSurnameTextView.text = note.body
+        _nameTextView.setText(note.nid)
+//        _firstSurnameTextView.text = note.title
+//        _secondSurnameTextView.text = note.body
     }
 
 }

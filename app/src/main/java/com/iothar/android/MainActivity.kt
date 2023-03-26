@@ -1,30 +1,21 @@
 package com.iothar.android
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageButton
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.iothar.android.recycler.NoteAdapter
 import com.iothar.db.entity.Note
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 
     // <<-FIELD->>
     private lateinit var _notes: MutableList<Note>
 
-    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.custom_bar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
 //        bar!!.
 
@@ -72,21 +63,24 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
-        R.id.add_note -> {
-            startActivity(
-                Intent(this@MainActivity, EditNoteActivity::class.java)
-                    .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) }
-            )
-            true
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.add_note -> {
+                startActivity(
+                    Intent(this@MainActivity, EditNoteActivity::class.java)
+                        .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) }
+                             )
+                true
+            }
+
+            R.id.manage_tags -> {
+                startActivity(
+                    Intent(this@MainActivity, EditTagsActivity::class.java)
+                             )
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
-        R.id.manage_tags -> {
-            startActivity(
-                Intent(this@MainActivity, EditTagsActivity::class.java)
-            )
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 
 }

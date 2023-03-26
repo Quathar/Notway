@@ -11,8 +11,8 @@ data class NoteWithTags(
     @Embedded
     val note: Note,
     @Relation(
-        parentColumn = "noteId",
-        entityColumn = "tagId",
+        parentColumn = "nid",
+        entityColumn = "tid",
         associateBy  = Junction(NoteTagCrossRef::class)
     )
     val tags: List<Tag>

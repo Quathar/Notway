@@ -15,4 +15,11 @@
     <string name="edit_tags">Tags</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="note_body_hint">What are your thoughts?</string>
+    <string name="note_title_hint">Title</string>
+    <string name="edit_note_hint">Edit Note</string>
+    <string name="delete_note_hint">Delete Note</string>
+    <string name="tag_name_hint">Name</string>
+    <string name="edit_tag_hint">Edit Tag</string>
+    <string name="delete_tag_hint">Delete Tag</string>
 </resources>

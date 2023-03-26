@@ -1,22 +1,11 @@
 package com.iothar.android
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog.show
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.iothar.android.dialog.TagDialog
-import com.iothar.db.entity.Note
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.functions.Action
-import io.reactivex.rxjava3.functions.Consumer
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class EditNoteActivity : AppCompatActivity() {
 
@@ -29,7 +18,7 @@ class EditNoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_note)
-        setSupportActionBar(findViewById(R.id.custom_bar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.title_add_note)

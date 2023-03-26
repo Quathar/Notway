@@ -10,7 +10,7 @@ class EditTagsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_tags)
-        setSupportActionBar(findViewById(R.id.custom_bar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.edit_tags)
