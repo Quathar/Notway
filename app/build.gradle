@@ -43,6 +43,7 @@ dependencies {
     // ROOM
     implementation "androidx.room:room-ktx:$rootProject.ext.room_version"
     kapt "androidx.room:room-compiler:$rootProject.ext.room_version"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 
     // MODULES
     implementation project(path: ':db')

@@ -26,7 +26,7 @@ class TagDialog : DialogFragment() {
         return activity?.let {
             AlertDialog.Builder(it)
                 .setMessage(R.string.manage_tags)
-                .setView(activity?.layoutInflater!!.inflate(R.layout.activity_edit_tags, null))
+                .setView(activity?.layoutInflater!!.inflate(R.layout.dialog_new_tag, null))
                 .setPositiveButton(getString(R.string.ok)) { dialog, id ->
                     // Add Functionality. Enter the correct ID
                     val tagEditText = getDialog()!!.findViewById<EditText>(R.id.manage_tags)

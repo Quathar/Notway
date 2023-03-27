@@ -9,4 +9,9 @@ data class Note(
     var nid: Int,
     var title: String?,
     var body: String?
-)
+) {
+    companion object {
+        fun empty() = Note(-1, "", "")
+
+    }
+}

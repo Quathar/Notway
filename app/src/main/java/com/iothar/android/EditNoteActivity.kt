@@ -1,79 +1,51 @@
 package com.iothar.android
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputEditText
 import com.iothar.android.dialog.TagDialog
+import com.iothar.db.AppDatabase
+import com.iothar.db.entity.Note
+import kotlinx.coroutines.launch
 
 class EditNoteActivity : AppCompatActivity() {
 
+    // <<-CONSTANTS->>
     companion object {
         private val TAG: String = EditNoteActivity::class.java.name
         const val NOTE_ID_KEY = "NOTE_ID"
     }
 
+    // <<-FIELD->>
+    private lateinit var _appDatabase: AppDatabase
+    private lateinit var _note: Note
+
+    // <<-METHODS->>
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_note)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.title_add_note)
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-//            )
-//        )
-//        binding.myToolbar.setupWithNavController(navController, appBarConfiguration)
 
-//        val appDatabase = (application as RoomApplication).appDatabase
+        _appDatabase = (application as RoomApplication).appDatabase
+    }
 
-//        val noteConsumer = Consumer { note: Note ->
-//            val editStudentNameText          = findViewById<EditText>(R.id.edit_student_name)
-//            val editStudentFirstSurnameText  = findViewById<EditText>(R.id.edit_student_first_surname)
-//            val editStudentSecondSurnameText = findViewById<EditText>(R.id.edit_student_second_surname)
-//            editStudentNameText.setText(note.noteId)
-//            editStudentFirstSurnameText.setText(note.title)
-//            editStudentSecondSurnameText.setText(note.body)
-//
-//            findViewById<Button>(R.id.save_student_button).setOnClickListener {
-//                note.noteId = editStudentNameText.text.toString().toInt()
-//                note.title  = editStudentFirstSurnameText.text.toString()
-//                note.body   = editStudentSecondSurnameText.text.toString()
-//
-//                val navigateToMainActivityAction = Action {
-//                    startActivity(
-//                        Intent(this@EditNoteActivity, MainActivity::class.java)
-//                    )
-//                }
-//
-//                if (note.noteId > 0)
-//                    appDatabase.notesDao()
-//                        .updateNote(note)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(navigateToMainActivityAction)
-//                else
-//                    appDatabase.notesDao()
-//                        .insertNote(note)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(navigateToMainActivityAction)
-//            }
-//        }
-//        val noteId = intent.getIntExtra(NOTE_ID_KEY, 0)
-//
-//        if (noteId > 0)
-//            appDatabase.notesDao()
-//                .find(noteId)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(noteConsumer)
-//        else
-//            noteConsumer.accept(Note(-1, "", ""))
+    private fun buildNote() {
+        val title = findViewById<EditText>(R.id.note_title)
+        val body  = findViewById<TextInputEditText>(R.id.note_body)
+
+        _note = Note.empty()
+        _note.nid = intent.getIntExtra(NOTE_ID_KEY, 0)
+        _note.title = title.toString()
+        _note.body = body.toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -82,20 +54,24 @@ class EditNoteActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.manage_tags -> {
                 TagDialog().show(supportFragmentManager, "New Tag")
+
                 true
             }
             R.id.save_icon -> {
-                // Que aparezca la ventana de administrar tags
-//            startActivity(
-//                Intent(this@MainActivity, EditNoteActivity::class.java)
-//                    .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) }
-//            )
+                buildNote()
+                lifecycleScope.launch {
+                    if (_note.nid > 0)
+                        _appDatabase.notesDao().updateNote(_note)
+                    else _appDatabase.notesDao().insertNote(_note)
+                    startActivity(Intent(this@EditNoteActivity, MainActivity::class.java))
+                    println(_appDatabase.notesDao().getAll())
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
-    }
+        }
 
 }
