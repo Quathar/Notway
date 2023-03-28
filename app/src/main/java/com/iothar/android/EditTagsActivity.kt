@@ -3,9 +3,23 @@ package com.iothar.android
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.iothar.android.recycler.tag.TagAdapter
+import com.iothar.db.AppDatabase
+import com.iothar.db.model.TagWithNotes
+import kotlinx.coroutines.launch
 
 class EditTagsActivity : AppCompatActivity() {
+
+    private lateinit var _appDatabase:  AppDatabase
+    private lateinit var _recyclerTags: RecyclerView
+    private lateinit var _tagAdapter:   TagAdapter
+    private lateinit var _tags:         MutableList<TagWithNotes>
+    private lateinit var _tag:          TagWithNotes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,31 +27,85 @@ class EditTagsActivity : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.edit_tags)
+
+        _appDatabase = (application as RoomApplication).appDatabase
+
+        lifecycleScope.launch {
+            _tags = _appDatabase
+                .tagsDao()
+                .getTagsWithNotes()
+                .toMutableList()
+
+            initRecyclerTags()
+        }
+    }
+
+    private fun initRecyclerTags() {
+        _recyclerTags = findViewById(R.id.tags_recycler)
+        _tagAdapter   = TagAdapter(_tags, object : TagAdapter.TagClickListener {
+            override fun onTagSave(position: Int) {
+                lifecycleScope.launch {
+//                    _tag = _tags[position]
+//
+//                    if (tag.tid > 0)
+//                        _appDatabase
+//                            .tagsDao()
+//                            .updateTag(tag)
+//                    else
+//                        tag.tid = _appDatabase
+//                            .tagsDao()
+//                            .insertTag(tag)
+//                            .toInt()
+//
+////                    _tags.
+//                    _tagAdapter.notifyItemChanged(position)
+                }
+            }
+
+            override fun onTagDelete(position: Int) {
+                lifecycleScope.launch {
+                    _appDatabase
+                        .notesWithTagsDao()
+                        .deleteTagAndCrossReferences(_appDatabase.tagsDao().find(position))
+
+                    _tags.removeAt(position)
+                    _tagAdapter.notifyItemRemoved(position)
+                }
+            }
+        })
+        _recyclerTags.layoutManager = LinearLayoutManager(this@EditTagsActivity)
+        _recyclerTags.adapter       = _tagAdapter
+    }
+
+    private fun buildTag() {
+        _tag.tag.tag = findViewById<EditText>(R.id.tag_name).text.toString()
+//
+//        lifecycleScope.launch {
+//            if (_tag.tag.tid > 0)
+//                _appDatabase
+//                    .notesWithTagsDao()
+//                    .updateNoteWithTags()
+//            else
+//                _appDatabase
+//                    .notesWithTagsDao()
+//                    .insertNoteWithTags(_note)
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_edit_tags_menu, menu)
+        menuInflater.inflate(R.menu.menu_edit_tags, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
-        R.id.manage_tags -> {
-            //Dialog
-//            startActivity(
-//                Intent(this@EditNoteActivity, EditNoteActivity::class.java)
-//                    .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) }
-//            )
-            true
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.new_tag -> {
+                _tags.add(TagWithNotes.empty())
+                _tagAdapter.notifyItemInserted(_tags.size)
+                true
+            }
+
+            else             -> super.onOptionsItemSelected(item)
         }
-        R.id.save_icon -> {
-            // Que aparezca la ventana de administrar tags
-//            startActivity(
-//                Intent(this@MainActivity, EditNoteActivity::class.java)
-//                    .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) }
-//            )
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 
 }

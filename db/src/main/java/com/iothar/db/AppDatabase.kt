@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun notesDao(): NotesDao
     abstract fun tagsDao(): TagsDao
-    abstract fun notesWithTags(): NotesWithTagsDao
+    abstract fun notesWithTagsDao(): NotesWithTagsDao
 
     companion object {
 

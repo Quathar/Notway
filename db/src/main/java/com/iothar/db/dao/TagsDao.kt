@@ -22,7 +22,7 @@ interface TagsDao {
     suspend fun findWithTags(tid: Int): TagWithNotes
 
     @Insert
-    suspend fun insertTag(tag: Tag)
+    suspend fun insertTag(tag: Tag): Long
 
     @Insert
     suspend fun insertTags(tags: List<Tag>): List<Long>

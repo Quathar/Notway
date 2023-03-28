@@ -1,4 +1,4 @@
-package com.iothar.android.recycler
+package com.iothar.android.recycler.note
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

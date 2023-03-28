@@ -23,4 +23,5 @@
     <string name="edit_tag_hint">Edit Tag</string>
     <string name="delete_tag_hint">Delete Tag</string>
     <string name="create_a_new_tag">Create a new tag</string>
+    <string name="title_edit_note">Edit Note</string>
 </resources>

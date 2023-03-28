@@ -16,4 +16,9 @@ data class NoteWithTags(
         associateBy  = Junction(NoteTagCrossRef::class)
     )
     val tags: List<Tag>
-)
+) {
+    companion object {
+        fun empty() = NoteWithTags(Note(-1, "", ""), emptyList())
+
+    }
+}

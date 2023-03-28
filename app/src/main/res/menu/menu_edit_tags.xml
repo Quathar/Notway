@@ -3,13 +3,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/manage_tags"
-            android:icon="@drawable/ic_baseline_tag_add_24"
-            android:title="@string/add_tag"
-            app:showAsAction="ifRoom"/>
-
-    <item
-            android:id="@+id/save_icon"
+            android:id="@+id/new_tag"
             android:icon="@drawable/ic_baseline_save_24"
             android:title="@string/save"
             app:showAsAction="ifRoom"/>
