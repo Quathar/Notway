@@ -18,7 +18,7 @@ data class NoteWithTags(
     var tags: List<Tag>
 ) {
     companion object {
-        fun empty() = NoteWithTags(Note(-1, "", ""), emptyList())
+        fun empty() = NoteWithTags(Note(0, "", ""), emptyList())
 
     }
 }

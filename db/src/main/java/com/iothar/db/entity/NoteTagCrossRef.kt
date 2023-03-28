@@ -11,4 +11,9 @@ data class NoteTagCrossRef(
     var nid: Int,
     @ColumnInfo(index = true)
     var tid: Int
-)
+) {
+    companion object {
+        fun empty() = NoteTagCrossRef(-1, -1)
+
+    }
+}

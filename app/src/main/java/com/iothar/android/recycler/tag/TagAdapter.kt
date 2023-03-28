@@ -12,7 +12,7 @@ class TagAdapter(
 ) : RecyclerView.Adapter<TagViewHolder>() {
 
     interface TagClickListener {
-        fun onTagSave(position: Int)
+        fun onTagSave(position: Int, tagName: String)
         fun onTagDelete(position: Int)
     }
 

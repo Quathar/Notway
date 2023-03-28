@@ -10,16 +10,16 @@ import com.iothar.db.model.NoteWithTags
 abstract class NotesWithTagsDao {
 
     @Insert
-    protected abstract fun insertNote(note: Note): Long
+    protected abstract suspend fun insertNote(note: Note): Long
 
     @Insert
-    protected abstract fun insertTags(tags: List<Tag>): List<Long>
+    protected abstract suspend fun insertTags(tags: List<Tag>): List<Long>
 
     @Insert
-    protected abstract fun insertCrossRefs(noteTagCrossRefs: List<NoteTagCrossRef>)
+    protected abstract suspend fun insertCrossRefs(noteTagCrossRefs: List<NoteTagCrossRef>)
 
     @Query("DELETE FROM note_tag_ref WHERE nid = :nid")
-    protected abstract fun deleteCrossRefsByNoteId(nid: Int)
+    protected abstract suspend fun deleteCrossRefsByNoteId(nid: Int)
 
     suspend fun insertNoteWithTags(noteWithTags: NoteWithTags) {
         //First insert the note and get its Id
@@ -35,10 +35,10 @@ abstract class NotesWithTagsDao {
     }
 
     @Update
-    protected abstract fun updateNote(note: Note)
+    protected abstract suspend fun updateNote(note: Note)
 
     @Update
-    protected abstract fun updateTags(tags: List<Tag>)
+    protected abstract suspend fun updateTags(tags: List<Tag>)
 
     suspend fun updateNoteWithTags(noteWithTags: NoteWithTags) {
         //First update the note
@@ -57,25 +57,25 @@ abstract class NotesWithTagsDao {
         insertCrossRefs(newTagIds, existingTags, noteWithTags.note.nid)
     }
 
-    private fun insertCrossRefs(newTagIds: List<Long>, existingTags: List<Tag>, nid: Int) {
+    private suspend fun insertCrossRefs(newTagIds: List<Long>, existingTags: List<Tag>, nid: Int) {
         val tagIdsToCrossReference = ArrayList<Long>()
         tagIdsToCrossReference.addAll(newTagIds)
         tagIdsToCrossReference.addAll(existingTags.map { t -> t.tid.toLong() })
         val notesTagCrossRefs = ArrayList<NoteTagCrossRef>()
-//        for (tagId in tagIdsToCrossReference) {
-//            val noteTagCrossRef = NoteTagCrossRef()
-//            noteTagCrossRef.noteId = noteId
-//            noteTagCrossRef.tagId = tagId.toInt()
-//            notesTagCrossRefs.add(noteTagCrossRef)
-//        }
+        for (tagId in tagIdsToCrossReference) {
+            val noteTagCrossRef = NoteTagCrossRef.empty()
+            noteTagCrossRef.nid = nid
+            noteTagCrossRef.tid = tagId.toInt()
+            notesTagCrossRefs.add(noteTagCrossRef)
+        }
         insertCrossRefs(notesTagCrossRefs)
     }
 
     @Query("DELETE FROM note_tag_ref WHERE tid = :tid")
-    protected abstract fun deleteCrossRefsByTagId(tid: Int)
+    protected abstract suspend fun deleteCrossRefsByTagId(tid: Int)
 
     @Delete
-    protected abstract fun deleteTag(tag: Tag)
+    protected abstract suspend fun deleteTag(tag: Tag)
 
     suspend fun deleteTagAndCrossReferences(tag: Tag) {
         //First delete all the crossreferences
@@ -85,7 +85,7 @@ abstract class NotesWithTagsDao {
     }
 
     @Delete
-    protected abstract fun deleteNote(note: Note)
+    protected abstract suspend fun deleteNote(note: Note)
 
     suspend fun deleteNoteAndCrossReferences(note: Note) {
         //First delete all the crossreferences

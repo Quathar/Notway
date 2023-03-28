@@ -44,22 +44,19 @@ class EditTagsActivity : AppCompatActivity() {
     private fun initRecyclerTags() {
         _recyclerTags = findViewById(R.id.tags_recycler)
         _tagAdapter   = TagAdapter(_tags, object : TagAdapter.TagClickListener {
-            override fun onTagSave(position: Int) {
+            override fun onTagSave(position: Int, tagName: String) {
+                _tag     = _tags[position]
+                _tag.tag.tag = tagName
+
                 lifecycleScope.launch {
-//                    _tag = _tags[position]
-//
-//                    if (tag.tid > 0)
-//                        _appDatabase
-//                            .tagsDao()
-//                            .updateTag(tag)
-//                    else
-//                        tag.tid = _appDatabase
-//                            .tagsDao()
-//                            .insertTag(tag)
-//                            .toInt()
-//
-////                    _tags.
-//                    _tagAdapter.notifyItemChanged(position)
+                    if (_tag.tag.tid > 0)
+                        _appDatabase
+                            .tagsDao()
+                            .updateTag(_tag.tag)
+                    else
+                        _appDatabase
+                            .tagsDao()
+                            .insertTag(_tag.tag)
                 }
             }
 
@@ -67,7 +64,7 @@ class EditTagsActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     _appDatabase
                         .notesWithTagsDao()
-                        .deleteTagAndCrossReferences(_appDatabase.tagsDao().find(position))
+                        .deleteTagAndCrossReferences(_tags[position].tag)
 
                     _tags.removeAt(position)
                     _tagAdapter.notifyItemRemoved(position)

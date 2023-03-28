@@ -18,7 +18,7 @@ data class TagWithNotes(
     val notes: List<Note>
 ) {
     companion object {
-        fun empty() = TagWithNotes(Tag(-1, ""), emptyList())
+        fun empty() = TagWithNotes(Tag(0, ""), emptyList())
 
     }
 }

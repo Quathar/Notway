@@ -21,7 +21,7 @@ class TagViewHolder(
     fun bind(tagWithNotes: TagWithNotes) {
         _name.setText(tagWithNotes.tag.tag)
         _ref.text = tagWithNotes.notes.size.toString()
-        _buttonSave.setOnClickListener   { tagClickListener.onTagSave(adapterPosition) }
+        _buttonSave.setOnClickListener   { tagClickListener.onTagSave(adapterPosition, _name.text.toString()) }
         _buttonDelete.setOnClickListener { tagClickListener.onTagDelete(adapterPosition) }
     }
 

@@ -10,7 +10,7 @@ data class Tag(
     var tag: String?
 ) {
     companion object {
-        fun empty() = Tag(-1, "")
+        fun empty() = Tag(0, "")
 
     }
 }
