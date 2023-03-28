@@ -7,15 +7,17 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
-import com.iothar.android.dialog.TagDialog
+import com.iothar.android.dialog.NewTagDialog
 import com.iothar.db.AppDatabase
+import com.iothar.db.entity.Tag
 import com.iothar.db.model.NoteWithTags
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
-class EditNoteActivity : AppCompatActivity() {
+class EditNoteActivity : AppCompatActivity(), NewTagDialog.NewTagDialogListener {
 
     // <<-CONSTANTS->>
     companion object {
@@ -29,7 +31,8 @@ class EditNoteActivity : AppCompatActivity() {
     private lateinit var _noteTags:    ChipGroup
     private lateinit var _noteTitle:   EditText
     private lateinit var _noteBody:    TextInputEditText
-    private          var _noteId by Delegates.notNull<Int>()
+    private lateinit var _allTags:     MutableList<Tag>
+    private          var _noteId by    Delegates.notNull<Int>()
 
     // <<-METHODS->>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,29 +50,47 @@ class EditNoteActivity : AppCompatActivity() {
             getString(R.string.title_add_note) else
             getString(R.string.title_edit_note)
 
-        loadNote()
+        loadAllTags()
+    }
+
+    private fun loadAllTags() {
+        lifecycleScope.launch {
+            _allTags = _appDatabase
+                .tagsDao()
+                .getAll()
+                .toMutableList()
+
+            _allTags.forEach { tag ->
+                val chip = layoutInflater.inflate(R.layout.chip, _noteTags, false) as Chip
+                chip.text = tag.tag
+                chip.id = tag.tid
+                _noteTags.addView(chip)
+            }
+
+            loadNote()
+        }
     }
 
     private fun loadNote() {
-        if (_noteId != 0) {
+        if (_noteId > 0) {
             lifecycleScope.launch {
                 _note = _appDatabase
                     .notesDao()
                     .findWithNotes(_noteId)
 
-//                _noteTags.setText(_note.note.title)
                 _noteTitle.setText(_note.note.title)
                 _noteBody.setText(_note.note.body)
+                _note.tags.forEach { tag -> _noteTags.findViewById<Chip>(tag.tid).isChecked = true }
             }
         }
     }
 
-    private fun buildNote() {
+    private fun saveNote() {
         _note            = NoteWithTags.empty()
         _note.note.nid   = _noteId
-//        _note.tags       = _noteTitle.text.toString()
         _note.note.title = _noteTitle.text.toString()
         _note.note.body  = _noteBody.text.toString()
+        _note.tags       = _allTags.filterIndexed { index, _ -> (_noteTags.getChildAt(index) as Chip).isChecked }
 
         lifecycleScope.launch {
             if (_noteId > 0)
@@ -86,20 +107,34 @@ class EditNoteActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDialogOkClick(newTag: String) {
+        if (newTag.isBlank()) return
+
+        val tag = Tag.empty()
+        tag.tag = newTag
+        _allTags.add(tag)
+
+        val chip = layoutInflater.inflate(R.layout.chip, _noteTags, false) as Chip
+        chip.text = tag.tag
+        chip.id = tag.tid
+        chip.isChecked = true
+        _noteTags.addView(chip)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_edit_note, menu)
+        menuInflater.inflate(R.menu.edit_note, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             R.id.add_tag   -> {
-                TagDialog().show(supportFragmentManager, "New Tag")
+                NewTagDialog().show(supportFragmentManager, "dialog")
                 true
             }
 
             R.id.save_note -> {
-                buildNote()
+                saveNote()
                 true
             }
 

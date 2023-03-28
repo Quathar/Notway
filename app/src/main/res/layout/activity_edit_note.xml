@@ -20,32 +20,41 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toTopOf="@+id/tags_scroll_view"/>
 
 
-    <com.google.android.material.chip.ChipGroup
-            android:id="@+id/note_tags"
+    <HorizontalScrollView
+            android:id="@+id/tags_scroll_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_title">
+            app:layout_constraintTop_toBottomOf="@+id/note_title"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toTopOf="@+id/note_body_layout">
 
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="PMDM"-->
-        <!--                android:id="@+id/chip3" android:minHeight="48dp"/>-->
+        <com.google.android.material.chip.ChipGroup
+                android:id="@+id/note_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="fun"-->
-        <!--                android:id="@+id/chip4" android:minHeight="48dp"/>-->
+<!--            <com.google.android.material.chip.Chip-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="PMDM"-->
+<!--                    android:id="@+id/chip3" android:minHeight="48dp"/>-->
 
-    </com.google.android.material.chip.ChipGroup>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="fun"-->
+<!--                    android:id="@+id/chip4" android:minHeight="48dp"/>-->
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/note_body_layout"
@@ -57,8 +66,8 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_tags"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/tags_scroll_view"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/note_body"

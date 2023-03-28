@@ -8,4 +8,9 @@ data class Tag(
     @PrimaryKey(autoGenerate = true)
     var tid: Int,
     var tag: String?
-)
+) {
+    companion object {
+        fun empty() = Tag(-1, "")
+
+    }
+}

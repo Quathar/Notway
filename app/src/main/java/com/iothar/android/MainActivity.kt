@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 .toMutableList()
 
             initRecyclerNotes()
+            loadNotes()
         }
     }
 
@@ -61,8 +62,13 @@ class MainActivity : AppCompatActivity() {
         _recyclerNotes.adapter       = _noteAdapter
     }
 
+    private fun loadNotes() {
+        if (_notes.isEmpty()) return
+        _noteAdapter.notifyItemRangeInserted(0, _notes.size)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 

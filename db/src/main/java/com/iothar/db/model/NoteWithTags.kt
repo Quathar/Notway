@@ -15,7 +15,7 @@ data class NoteWithTags(
         entityColumn = "tid",
         associateBy  = Junction(NoteTagCrossRef::class)
     )
-    val tags: List<Tag>
+    var tags: List<Tag>
 ) {
     companion object {
         fun empty() = NoteWithTags(Note(-1, "", ""), emptyList())

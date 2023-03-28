@@ -37,6 +37,7 @@ class EditTagsActivity : AppCompatActivity() {
                 .toMutableList()
 
             initRecyclerTags()
+            loadTags()
         }
     }
 
@@ -77,23 +78,14 @@ class EditTagsActivity : AppCompatActivity() {
         _recyclerTags.adapter       = _tagAdapter
     }
 
-    private fun buildTag() {
-        _tag.tag.tag = findViewById<EditText>(R.id.tag_name).text.toString()
-//
-//        lifecycleScope.launch {
-//            if (_tag.tag.tid > 0)
-//                _appDatabase
-//                    .notesWithTagsDao()
-//                    .updateNoteWithTags()
-//            else
-//                _appDatabase
-//                    .notesWithTagsDao()
-//                    .insertNoteWithTags(_note)
-//        }
+    private fun loadTags() {
+        if (_tags.isEmpty()) return
+        _tagAdapter.notifyItemRangeInserted(0, _tags.size)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_edit_tags, menu)
+        menuInflater.inflate(R.menu.edit_tags, menu)
         return true
     }
 
