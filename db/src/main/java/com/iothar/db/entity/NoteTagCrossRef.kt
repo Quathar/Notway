@@ -14,6 +14,5 @@ data class NoteTagCrossRef(
 ) {
     companion object {
         fun empty() = NoteTagCrossRef(-1, -1)
-
     }
 }

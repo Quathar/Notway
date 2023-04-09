@@ -15,12 +15,14 @@ import kotlinx.coroutines.launch
 
 class EditTagsActivity : AppCompatActivity() {
 
+    // <<-FIELDS->>
     private lateinit var _appDatabase:  AppDatabase
     private lateinit var _recyclerTags: RecyclerView
     private lateinit var _tagAdapter:   TagAdapter
     private lateinit var _tags:         MutableList<TagWithNotes>
     private lateinit var _tag:          TagWithNotes
 
+    // <<-METHODS->>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_tags)

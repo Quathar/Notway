@@ -15,12 +15,13 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    // <<-FIELD->>
+    // <<-FIELDS->>
     private lateinit var _appDatabase:   AppDatabase
     private lateinit var _recyclerNotes: RecyclerView
     private lateinit var _noteAdapter:   NoteAdapter
     private lateinit var _notes:         MutableList<Note>
 
+    // <<-METHODS->>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                     _appDatabase
                         .notesWithTagsDao()
                         .deleteNoteAndCrossReferences(_appDatabase.notesDao().find(position))
-
                     _notes.removeAt(position)
                     _noteAdapter.notifyItemRemoved(position)
                 }
@@ -80,14 +80,11 @@ class MainActivity : AppCompatActivity() {
                         .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) })
                 true
             }
-
             R.id.manage_tags -> {
                 startActivity(
                     Intent(this@MainActivity, EditTagsActivity::class.java))
                 true
-            }
-
-            else             -> super.onOptionsItemSelected(item)
+            } else -> super.onOptionsItemSelected(item)
         }
 
 }

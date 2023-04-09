@@ -25,7 +25,7 @@ class EditNoteActivity : AppCompatActivity(), NewTagDialog.NewTagDialogListener 
         const   val NOTE_ID_KEY = "NOTE_ID"
     }
 
-    // <<-FIELD->>
+    // <<-FIELDS->>
     private lateinit var _appDatabase: AppDatabase
     private lateinit var _note:        NoteWithTags
     private lateinit var _noteTags:    ChipGroup
@@ -63,7 +63,7 @@ class EditNoteActivity : AppCompatActivity(), NewTagDialog.NewTagDialogListener 
             _allTags.forEach { tag ->
                 val chip = layoutInflater.inflate(R.layout.chip, _noteTags, false) as Chip
                 chip.text = tag.tag
-                chip.id = tag.tid
+                chip.id   = tag.tid
                 _noteTags.addView(chip)
             }
 

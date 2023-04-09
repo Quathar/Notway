@@ -11,13 +11,17 @@ class TagAdapter(
     private val tagClickListener: TagClickListener
 ) : RecyclerView.Adapter<TagViewHolder>() {
 
+    // <<-INTERFACE->>
     interface TagClickListener {
         fun onTagSave(position: Int, tagName: String)
         fun onTagDelete(position: Int)
     }
 
+    // <<-METHODS->>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)
+        val view = LayoutInflater
+                        .from(parent.context)
+                        .inflate(R.layout.item_tag, parent, false)
         return TagViewHolder(view, tagClickListener)
     }
 

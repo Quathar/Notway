@@ -12,6 +12,7 @@ class NoteViewHolder(
     private val noteClickListener: NoteAdapter.NoteClickListener
 ) : RecyclerView.ViewHolder(view) {
 
+    // <<-FIELDS->>
     private val _name         = view.findViewById<TextView>(R.id.note_name)
     private val _buttonEdit   = view.findViewById<ImageButton>(R.id.button_edit_note)
     private val _buttonDelete = view.findViewById<ImageButton>(R.id.button_delete_note)

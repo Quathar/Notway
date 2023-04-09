@@ -13,6 +13,7 @@ class TagViewHolder(
     private val tagClickListener: TagAdapter.TagClickListener
 ) : RecyclerView.ViewHolder(view) {
 
+    // <<-FIELDS->>
     private val _name         = view.findViewById<EditText>(R.id.tag_name)
     private val _ref          = view.findViewById<TextView>(R.id.tag_ref)
     private val _buttonSave   = view.findViewById<ImageButton>(R.id.button_save_tag)
@@ -20,6 +21,7 @@ class TagViewHolder(
 
     fun bind(tagWithNotes: TagWithNotes) {
         _name.setText(tagWithNotes.tag.tag)
+        // The note counter associated with that tag
         _ref.text = tagWithNotes.notes.size.toString()
         _buttonSave.setOnClickListener   { tagClickListener.onTagSave(adapterPosition, _name.text.toString()) }
         _buttonDelete.setOnClickListener { tagClickListener.onTagDelete(adapterPosition) }

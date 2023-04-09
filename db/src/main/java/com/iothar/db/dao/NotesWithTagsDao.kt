@@ -22,15 +22,15 @@ abstract class NotesWithTagsDao {
     protected abstract suspend fun deleteCrossRefsByNoteId(nid: Int)
 
     suspend fun insertNoteWithTags(noteWithTags: NoteWithTags) {
-        //First insert the note and get its Id
+        // First insert the note and get its Id
         val noteId = insertNote(noteWithTags.note).toInt()
 
-        //Then insert *only* the newly created tags
+        // Then insert *only* the newly created tags
         val newTags = noteWithTags.tags.filter { tag -> tag.tid == 0 }
         val newTagIds = insertTags(newTags)
         val existingTags = noteWithTags.tags.filter { tag -> tag.tid != 0 }
 
-        //Finally, create the note/tag cross references.
+        // Finally, create the note/tag cross references.
         insertCrossRefs(newTagIds, existingTags, noteId)
     }
 
@@ -41,19 +41,19 @@ abstract class NotesWithTagsDao {
     protected abstract suspend fun updateTags(tags: List<Tag>)
 
     suspend fun updateNoteWithTags(noteWithTags: NoteWithTags) {
-        //First update the note
+        // First update the note
         updateNote(noteWithTags.note)
-        //Then insert *only* the newly created tags
+        // Then insert *only* the newly created tags
         val newTags = noteWithTags.tags.filter { tag -> tag.tid == 0 }
         val newTagIds = insertTags(newTags)
-        //And update the existingTags in case they've somehow changed. To keep things simple, we update them without further checks
+        // And update the existingTags in case they've somehow changed. To keep things simple, we update them without further checks
         val existingTags = noteWithTags.tags.filter { tag -> tag.tid != 0 }
         updateTags(existingTags)
 
-        //Finally, create the note/tag cross references.
-        //Again, to keep things simple, we delete any existing cross reference
+        // Finally, create the note/tag cross references.
+        // Again, to keep things simple, we delete any existing cross reference
         deleteCrossRefsByNoteId(noteWithTags.note.nid)
-        //and then we insert them all
+        // And then we insert them all
         insertCrossRefs(newTagIds, existingTags, noteWithTags.note.nid)
     }
 
@@ -61,6 +61,7 @@ abstract class NotesWithTagsDao {
         val tagIdsToCrossReference = ArrayList<Long>()
         tagIdsToCrossReference.addAll(newTagIds)
         tagIdsToCrossReference.addAll(existingTags.map { t -> t.tid.toLong() })
+
         val notesTagCrossRefs = ArrayList<NoteTagCrossRef>()
         for (tagId in tagIdsToCrossReference) {
             val noteTagCrossRef = NoteTagCrossRef.empty()
@@ -78,9 +79,9 @@ abstract class NotesWithTagsDao {
     protected abstract suspend fun deleteTag(tag: Tag)
 
     suspend fun deleteTagAndCrossReferences(tag: Tag) {
-        //First delete all the crossreferences
+        // First delete all the CrossReferences
         deleteCrossRefsByTagId(tag.tid)
-        //Then delete the tag proper
+        // Then delete the Tag proper
         deleteTag(tag)
     }
 
@@ -88,9 +89,10 @@ abstract class NotesWithTagsDao {
     protected abstract suspend fun deleteNote(note: Note)
 
     suspend fun deleteNoteAndCrossReferences(note: Note) {
-        //First delete all the crossreferences
+        //First delete all the CrossReferences
         deleteCrossRefsByNoteId(note.nid)
-        //Then delete the note proper
+        //Then delete the Note proper
         deleteNote(note)
     }
+
 }

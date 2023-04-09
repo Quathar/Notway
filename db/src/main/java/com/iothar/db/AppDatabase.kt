@@ -14,10 +14,10 @@ import com.iothar.db.entity.Tag
 @Database(
     entities     = [Note::class, Tag::class, NoteTagCrossRef::class],
     version      = 1,
-    exportSchema = false
-)
+    exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
+    // <<-METHODS->>
     abstract fun notesDao(): NotesDao
     abstract fun tagsDao(): TagsDao
     abstract fun notesWithTagsDao(): NotesWithTagsDao

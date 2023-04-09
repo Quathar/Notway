@@ -11,13 +11,17 @@ class NoteAdapter(
     private val noteClickListener: NoteClickListener
 ) : RecyclerView.Adapter<NoteViewHolder>() {
 
+    // <<-INTERFACE->>
     interface NoteClickListener {
         fun onNoteEdit(position: Int)
         fun onNoteDelete(position: Int)
     }
 
+    // <<-METHODS->>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
+        val view = LayoutInflater
+                        .from(parent.context)
+                        .inflate(R.layout.item_note, parent, false)
         return NoteViewHolder(view, noteClickListener)
     }
 

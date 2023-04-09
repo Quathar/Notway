@@ -11,6 +11,5 @@ data class Tag(
 ) {
     companion object {
         fun empty() = Tag(0, "")
-
     }
 }

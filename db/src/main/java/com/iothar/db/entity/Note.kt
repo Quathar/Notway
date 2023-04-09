@@ -12,6 +12,5 @@ data class Note(
 ) {
     companion object {
         fun empty() = Note(-1, "", "")
-
     }
 }
