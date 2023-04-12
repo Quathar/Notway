@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.chip.Chip
 import com.iothar.android.R
 import com.iothar.android.databinding.ActivityEditNoteBinding
-import com.iothar.android.databinding.ChipBinding
+import com.iothar.android.databinding.ItemChipBinding
 import com.iothar.android.dialog.NewTagDialog
 import com.iothar.android.ui.main.MainActivity
 import com.iothar.data.entity.Tag
@@ -60,7 +60,7 @@ class EditNoteActivity : AppCompatActivity(), NewTagDialog.NewTagDialogListener 
                     noteTags.removeAllViews()
 
                     tags.forEach { tag ->
-                        val chip       = ChipBinding.inflate(layoutInflater, noteTags, false).root
+                        val chip       = ItemChipBinding.inflate(layoutInflater, noteTags, false).root
                         chip.text      = tag.tag
                         chip.id        = tag.tid
                         chip.isChecked = noteWithTags.tags.map { it.tid }.contains(chip.id)
@@ -98,7 +98,7 @@ class EditNoteActivity : AppCompatActivity(), NewTagDialog.NewTagDialogListener 
         val tag = Tag.empty()
         tag.tag = newTag
 
-        val chip       = ChipBinding.inflate(layoutInflater, noteTags, false).root
+        val chip       = ItemChipBinding.inflate(layoutInflater, noteTags, false).root
         chip.text      = tag.tag
         chip.id        = tag.tid
         chip.isChecked = true

@@ -9,7 +9,7 @@
 
     <item android:id="@+id/save_note"
           android:icon="@drawable/ic_baseline_save_24"
-          android:title="@string/save"
+          android:title="@string/save_note"
           app:showAsAction="ifRoom"/>
 
 </menu>
