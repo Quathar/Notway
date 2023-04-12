@@ -2,9 +2,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
        android:shape="oval">
 
-    <solid android:color="@color/mindaro"/>
+    <solid android:color="?attr/colorSecondary"/>
 
     <stroke android:width="4dp"
-            android:color="@color/xanthous"/>
+            android:color="?attr/colorSecondaryVariant"/>
 
 </shape>

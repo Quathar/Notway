@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name"        >Notway</string>
+
+    <string name="add"             >Añadir                         </string>
+    <string name="add_note"        >Añadir Nota                    </string>
+    <string name="add_tag"         >Añadir Etiqueta                </string>
+    <string name="cancel"          >Cancelar                       </string>
+    <string name="new_tag_hint"    >Crear una nueva etiqueta       </string>
+    <string name="delete_note_hint">Borrar Nota                    </string>
+    <string name="delete_tag_hint" >Borrar Etiqueta                </string>
+    <string name="edit_note_hint"  >Editar Nota                    </string>
+    <string name="edit_tag_hint"   >Editar Etiqueta                </string>
+    <string name="edit_tags"       >Etiquetas                      </string>
+    <string name="manage_tags"     >Administrar Etiquetas          </string>
+    <string name="note_body_hint"  >¿En qué piensas?               </string>
+    <string name="note_title_hint" >Título                         </string>
+    <string name="ok"              >OK                             </string>
+    <string name="save_note"       >Guardar Nota                   </string>
+    <string name="new_tag"         >Nueva Etiqueta                 </string>
+    <string name="tag_name_hint"   >Nombre                         </string>
+    <string name="title_add_note"  >Nueva Nota                     </string>
+    <string name="title_edit_note" >Editar Nota                    </string>
+    <string name="change_app_theme">Cambia el tema de la aplicación</string>
+</resources>
