@@ -1,10 +1,27 @@
 <resources>
-    <string name="app_name">E5-AplicacionNotas</string>
-    <string name="add">add</string>
-    <string name="edit_student">edit student</string>
-    <string name="delete_student">delete student</string>
-    <string name="name">Name</string>
-    <string name="first_surname">First Surname</string>
-    <string name="second_surname">Second Surname</string>
-    <string name="save">Save</string>
+    <string name="app_name">Notway</string>
+
+    <string name="add"             >add                    </string>
+    <string name="add_note"        >Add Note               </string>
+    <string name="add_tag"         >Add tag                </string>
+    <string name="cancel"          >Cancel                 </string>
+    <string name="create_a_new_tag">Create a new tag       </string>
+    <string name="delete_note_hint">Delete Note            </string>
+    <string name="delete_student"  >delete student         </string>
+    <string name="delete_tag_hint" >Delete Tag             </string>
+    <string name="edit_note_hint"  >Edit Note              </string>
+    <string name="edit_tag_hint"   >Edit Tag               </string>
+    <string name="edit_tags"       >Tags                   </string>
+    <string name="edit_student"    >edit student           </string>
+    <string name="first_surname"   >First Surname          </string>
+    <string name="manage_tags"     >Manage Tags            </string>
+    <string name="name"            >Name                   </string>
+    <string name="note_body_hint"  >What are your thoughts?</string>
+    <string name="note_title_hint" >Title                  </string>
+    <string name="ok"              >OK                     </string>
+    <string name="save"            >Save                   </string>
+    <string name="second_surname"  >Second Surname         </string>
+    <string name="tag_name_hint"   >Name                   </string>
+    <string name="title_add_note"  >New Note               </string>
+    <string name="title_edit_note" >Edit Note              </string>
 </resources>

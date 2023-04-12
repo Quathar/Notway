@@ -1,0 +1,17 @@
+object Libs {
+    const val ANDROIDX_ACTIVITY              = "androidx.activity:activity-ktx:${Versions.ANDROIDX_ACTIVITY}"
+    const val ANDROIDX_APPCOMPAT             = "androidx.appcompat:appcompat:${Versions.ANDROIDX_APPCOMPAT}"
+    const val ANDROIDX_CONSTRAINTLAYOUT      = "androidx.constraintlayout:constraintlayout:${Versions.ANDROIDX_CONSTRAINTLAYOUT}"
+    const val ANDROIDX_CORE_KTX              = "androidx.core:core-ktx:${Versions.ANDROIDX_CORE}"
+    const val ANDROIDX_LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE}"
+    const val ANDROIDX_ROOM_COMPILER         = "androidx.room:room-compiler:${Versions.ANDROIDX_ROOM}"
+    const val ANDROIDX_ROOM_KTX              = "androidx.room:room-ktx:${Versions.ANDROIDX_ROOM}"
+    const val ANDROIDX_ROOM_RUNTIME          = "androidx.room:room-runtime:${Versions.ANDROIDX_ROOM}"
+    const val ANDROIDX_TEST_ESPRESSO         = "androidx.test.espresso:espresso-core:${Versions.ANDROIDX_TEST_ESPRESSO}"
+    const val ANDROIDX_TEST_EXT_JUNIT        = "androidx.test.ext:junit:${Versions.ANDROIDX_TEST_EXT}"
+    const val ANDROIDX_VIEWMODEL             = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.ANDROIDX_VIEWMODEL}"
+    const val HILT_ANDROID                   = "com.google.dagger:hilt-android:${Versions.HILT}"
+    const val HILT_ANDROID_COMPILER          = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
+    const val JUNIT                          = "junit:junit:${Versions.JUNIT}"
+    const val MATERIAL_ANDROID               = "com.google.android.material:material:${Versions.MATERIAL}"
+}

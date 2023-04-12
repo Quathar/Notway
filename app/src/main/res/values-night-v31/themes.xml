@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Notes" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/outer_space</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/outer_space</item>
+        <item name="colorSecondaryVariant">@color/white_34</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/outer_space</item>
+
+        <!-- Customize your theme here -->
+        <item name="android:colorBackground">@color/cadet_grey</item>
+        <item name="android:fontFamily">@font/oswald_bold</item>
+
+        <!-- Window Splash Screen -->
+        <item name="icon">@color/white</item>
+        <item name="android:windowSplashScreenBackground">@color/cadet_grey</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
+</resources>
