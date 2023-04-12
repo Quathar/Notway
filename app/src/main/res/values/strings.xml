@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Notes Application</string>
-    <string name="app_bar_name">Notway</string>
+    <string name="app_name">Notway</string>
 
     <string name="add"             >add                    </string>
     <string name="add_note"        >Add Note               </string>

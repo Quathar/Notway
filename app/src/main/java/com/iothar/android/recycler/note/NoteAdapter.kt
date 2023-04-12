@@ -2,31 +2,27 @@ package com.iothar.android.recycler.note
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.iothar.android.R
-import com.iothar.db.entity.Note
+import androidx.recyclerview.widget.ListAdapter
+import com.iothar.android.databinding.ItemNoteBinding
+import com.iothar.data.entity.Note
 
 class NoteAdapter(
-    private val notes: List<Note>,
     private val noteClickListener: NoteClickListener
-) : RecyclerView.Adapter<NoteViewHolder>() {
+) : ListAdapter<Note, NoteViewHolder>(NoteDiffUtil) {
 
     // <<-INTERFACE->>
     interface NoteClickListener {
-        fun onNoteEdit(position: Int)
-        fun onNoteDelete(position: Int)
+        fun onNoteEdit(nid: Int)
+        fun onNoteDelete(note: Note)
     }
 
     // <<-METHODS->>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val view = LayoutInflater
-                        .from(parent.context)
-                        .inflate(R.layout.item_note, parent, false)
-        return NoteViewHolder(view, noteClickListener)
+        val binding = ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return NoteViewHolder(binding, noteClickListener)
     }
 
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) = holder.bind(notes[position])
-
-    override fun getItemCount(): Int = notes.size
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) =
+        holder.bind(getItem(position))
 
 }
