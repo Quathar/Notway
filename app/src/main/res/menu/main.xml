@@ -13,8 +13,8 @@
           app:showAsAction="ifRoom"/>
 
     <!-- To add more functionalities to the action bar /-->
-<!--    <item android:id="@+id/action_settings"-->
-<!--          android:title="Functionality N"-->
-<!--          app:showAsAction="never"/>-->
+    <!--    <item android:id="@+id/action_settings"-->
+    <!--          android:title="Functionality N"-->
+    <!--          app:showAsAction="never"/>-->
 
 </menu>

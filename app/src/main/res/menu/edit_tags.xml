@@ -4,7 +4,7 @@
 
     <item android:id="@+id/new_tag"
           android:icon="@drawable/ic_baseline_add_to_photos_24"
-          android:title="@string/save"
+          android:title="@string/new_tag"
           app:showAsAction="ifRoom"/>
 
 </menu>
