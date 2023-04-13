@@ -21,5 +21,5 @@
     <string name="tag_name_hint"   >Nombre                         </string>
     <string name="title_add_note"  >Nueva Nota                     </string>
     <string name="title_edit_note" >Editar Nota                    </string>
-    <string name="change_app_theme">Cambia el tema de la aplicación</string>
+    <string name="switch_theme_hint">Cambia el tema de la aplicación</string>
 </resources>

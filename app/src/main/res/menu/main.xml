@@ -3,7 +3,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/switch_theme"
-          android:title=""
+          android:title="@string/switch_theme_hint"
           app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/add_note"
@@ -12,7 +12,6 @@
           app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/manage_tags"
-          android:icon="@drawable/ic_baseline_tag_add_24"
           android:title="@string/manage_tags"
           app:showAsAction="never"/>
 

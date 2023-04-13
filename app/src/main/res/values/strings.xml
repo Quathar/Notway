@@ -20,5 +20,5 @@
     <string name="tag_name_hint"   >Name                   </string>
     <string name="title_add_note"  >New Note               </string>
     <string name="title_edit_note" >Edit Note              </string>
-    <string name="change_app_theme">Change app theme       </string>
+    <string name="switch_theme_hint">Change app theme       </string>
 </resources>

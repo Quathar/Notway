@@ -7,13 +7,13 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iothar.android.ui.editnote.EditNoteActivity
 import com.iothar.android.ui.edittags.EditTagsActivity
 import com.iothar.android.R
 import com.iothar.android.databinding.ActivityMainBinding
+import com.iothar.android.databinding.ItemSwitchBinding
 import com.iothar.android.recycler.note.NoteAdapter
 import com.iothar.data.entity.Note
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun buildNoteAdapter() =
         NoteAdapter(object : NoteAdapter.NoteClickListener {
+
             override fun onNoteEdit(nid: Int) {
                 startActivity(
                     Intent(this@MainActivity, EditNoteActivity::class.java)
@@ -53,34 +54,37 @@ class MainActivity : AppCompatActivity() {
             override fun onNoteDelete(note: Note) {
                 _vm.notifyDeleteNote(note)
             }
+
         })
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
 
-        // Switch button configuration
-        val itemSwitch = menu!!.findItem(R.id.switch_theme)
-        itemSwitch.setActionView(R.layout.switch_layout)
+        val menuSwitch = menu?.findItem(R.id.switch_theme)
+        menuSwitch?.setActionView(R.layout.item_switch)
 
-        val switchButton = itemSwitch
-                                .actionView!!
-                                .findViewById(R.id.switch_button) as SwitchCompat
+        ItemSwitchBinding.bind(menuSwitch?.actionView!!).apply {
+            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                switchButton.isChecked = true
+                switchIcon.setImageResource(R.drawable.ic_baseline_wb_sunny_24)
+            }
 
-        // Necessary for the correct animation of the Switch Button
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            switchButton.isChecked = true
-
-        switchButton.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
-                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            switchButton.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    switchIcon.setImageResource(R.drawable.ic_baseline_nightlight_24)
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                } else {
+                    switchIcon.setImageResource(R.drawable.ic_baseline_wb_sunny_24)
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+            }
         }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
-            R.id.add_note -> {
+            R.id.add_note    -> {
                 startActivity(
                     Intent(this@MainActivity, EditNoteActivity::class.java)
                         .apply { putExtra(EditNoteActivity.NOTE_ID_KEY, 0) })
@@ -94,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
-            else -> super.onOptionsItemSelected(item)
+            else             -> super.onOptionsItemSelected(item)
         }
 
 }
