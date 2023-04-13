@@ -1,24 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Notway</string>
-
-    <string name="add"             >add                    </string>
-    <string name="add_note"        >Add Note               </string>
-    <string name="add_tag"         >Add tag                </string>
-    <string name="cancel"          >Cancel                 </string>
-    <string name="new_tag_hint"    >Create a new tag       </string>
-    <string name="delete_note_hint">Delete Note            </string>
-    <string name="delete_tag_hint" >Delete Tag             </string>
-    <string name="edit_note_hint"  >Edit Note              </string>
-    <string name="edit_tag_hint"   >Edit Tag               </string>
-    <string name="edit_tags"       >Tags                   </string>
-    <string name="manage_tags"     >Manage Tags            </string>
-    <string name="note_body_hint"  >What are your thoughts?</string>
-    <string name="note_title_hint" >Title                  </string>
-    <string name="ok"              >OK                     </string>
-    <string name="save_note"       >Save Note              </string>
-    <string name="new_tag"         >New Tag                </string>
-    <string name="tag_name_hint"   >Name                   </string>
-    <string name="title_add_note"  >New Note               </string>
-    <string name="title_edit_note" >Edit Note              </string>
-    <string name="switch_theme_hint">Change app theme       </string>
+    <string name="add">Add</string>
+    <string name="add_note">Add Note</string>
+    <string name="add_tag">Add Tag</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_note_hint">Delete Note</string>
+    <string name="delete_tag_hint">Delete Tag</string>
+    <string name="edit_note_hint">Edit Note</string>
+    <string name="edit_tag_hint">Edit Tag</string>
+    <string name="edit_tags">Tags</string>
+    <string name="manage_tags">Manage Tags</string>
+    <string name="new_tag">New Tag</string>
+    <string name="new_tag_hint">Create a New Tag</string>
+    <string name="note_body_hint">What are your thoughts?</string>
+    <string name="note_title_hint">Title</string>
+    <string name="ok">OK</string>
+    <string name="save_note">Save Note</string>
+    <string name="switch_theme_hint">Change App Theme</string>
+    <string name="tag_name_hint">Name</string>
+    <string name="title_add_note">New Note</string>
+    <string name="title_edit_note">Edit Note</string>
 </resources>

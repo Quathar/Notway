@@ -31,20 +31,20 @@ All the app's views are shown below with light and dark themes.
 ## 🗒️ Main View
 
 <div align="center">
-    <img src="docs/img/main-light.jpg" width="400"/>
-    <img src="docs/img/main-dark.jpg" width="400"/>
+    <img src="docs/img/main-light.png" width="400"/>
+    <img src="docs/img/main-dark.png" width="400"/>
 </div>
 
 ## 📝 Notes View
 
 <div align="center">
-    <img src="docs/img/notes-light.jpg" width="400"/>
-    <img src="docs/img/notes-dark.jpg" width="400"/>
+    <img src="docs/img/notes-light.png" width="400"/>
+    <img src="docs/img/notes-dark.png" width="400"/>
 </div>
 
 ## 🏷️ Tags View
 
 <div align="center">
-    <img src="docs/img/tags-light.jpg" width="400"/>
-    <img src="docs/img/tags-dark.jpg" width="400"/>
+    <img src="docs/img/tags-light.png" width="400"/>
+    <img src="docs/img/tags-dark.png" width="400"/>
 </div>

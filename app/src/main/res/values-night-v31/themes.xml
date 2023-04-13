@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Notes" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/status</item>
+        <!-- Customize your theme here -->
+        <item name="icon">@color/white</item>
+        <item name="colorSurface">@color/gray</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:fontFamily">@font/oswald_bold</item>
+        <item name="android:windowSplashScreenBackground">@color/background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+
+    </style>
+</resources>
